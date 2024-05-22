@@ -2,9 +2,9 @@ import * as React from 'react';
 import img from '../assets/aa.jpg';
 import {alpha, Box, Container, Stack, Typography, Grid} from '@mui/material';
 import {DropDownButton, FeedbackCard} from './index.js';
-import {TypeAnimation} from 'react-type-animation';
 import {useSelector} from 'react-redux';
 import axios from 'axios';
+import Typewriter from 'typewriter-effect';
 import Excel from './Excel.jsx';
 
 export default function Hero() {
@@ -16,7 +16,7 @@ export default function Hero() {
 	React.useEffect(() => {
 		const getUserFeedbacks = async () => {
 			const res = await axios.get(
-				'http://localhost:3000/feedback/getuserfeedbacks',
+				'http://localhost:8000/feedback/getuserfeedbacks',
 				{
 					withCredentials: true,
 					headers: {
@@ -33,103 +33,16 @@ export default function Hero() {
 	return (
 		<Box
 			id="hero"
-			sx={{
+			sx={(theme) => ({
 				width: '100%',
-				backgroundImage: `url('/path/to/your/background/image.jpg')`, // Change the background image URL here
-				backgroundSize: 'cover',
+				backgroundImage:
+					theme.palette.mode === 'light'
+						? 'linear-gradient(180deg, #CEE5FD, #FFF)'
+						: `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
+				backgroundSize: '100% 20%',
 				backgroundRepeat: 'no-repeat',
-			}}
+			})}
 		>
-			<Container sx={{py: 0}}>
-				<Grid container spacing={0}>
-					<div className="h-[50vh] w-full sm:h-[81vh] sm:w-[43%] flex flex-col  justify-center  items-start p-5 ">
-						<p className={`md:ml-[8vh]`}>
-							<h1
-								className={`font-bold  text-orange-700 text-4xl mt-2 sm:text-5xl px-2`}
-							>
-								{' '}
-								Feed<span className="text-gray-500">
-									RE
-								</span>{' '}
-							</h1>
-							<h1 className="font-bold w-[100%] sm:w-[100%] mt-4 p-2 sm:text-xl">
-								Welcome to Feedre! Your feedback is valuable to
-								us. This platform allows you to submit feedback
-								on various aspects, helping us improve our
-								services. Join us in shaping a better
-								experience!
-							</h1>
-							<TypeAnimation
-								sequence={[
-									' Better Experiences ',
-									2000,
-									'  Improvement',
-									2000,
-									' Building Trust',
-									2000,
-									' More Engagement    ',
-									2000,
-								]}
-								wrapper="span"
-								speed={50}
-								style={{
-									fontSize: ' 2rem',
-									display: 'inline-block',
-									paddingLeft: '5px',
-								}}
-								repeat={Infinity}
-							/>
-						</p>
-						{/* <button className='bg-blue-700 rounded-md text-white  px-4 py-1 mt-5 '>Get Started </button> */}
-					</div>
-					{/* <Grid item xs={12} sm={9}>
-						<Box sx={{textAlign: 'center', py: 9, px: 20}}>
-							<Typography variant="h4" color="primary">
-								Welcome to{' '}
-								<span style={{color: 'orange'}}>Feed</span>
-								<span style={{color: 'gray'}}>RE</span>
-							</Typography>
-							<Typography variant="body1" sx={{mt: 3}}>
-								Your Voice Matters! This platform bridges the
-								gap between students and departments, allowing
-								seamless feedback submission and in-depth
-								analysis. Join us in shaping a better academic
-								experience!
-							</Typography>
-						</Box>
-					</Grid> */}
-					<Grid item xs={12} sm={6}>
-						<Box
-							sx={{
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center',
-								height: '100%',
-							}}
-						>
-							<Stack
-								direction={{xs: 'column', sm: 'row'}}
-								alignSelf="center"
-								spacing={1}
-								sx={{pt: 2, width: {xs: '100%', sm: 'auto'}}}
-							>
-								{role !== 'admin' && (
-									<DropDownButton
-										variant="contained"
-										mainBtn="Your Feedback Menu "
-										btn1="Product Feedback"
-										btn2="Student Feedback"
-										btn3="Employee Feedback"
-										link1="productfeedback"
-										link2="studentfeedback"
-										link3="employeefeedback"
-									/>
-								)}
-							</Stack>
-						</Box>
-					</Grid>
-				</Grid>
-			</Container>
 			<Box
 				sx={{
 					display: 'flex',
@@ -192,8 +105,16 @@ export default function Hero() {
 					/>
 				</Box>
 			</Box>
-			<Container sx={{py: 8}}>
-				{/* <Stack
+			<Container
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+					pt: {xs: 8, sm: 10},
+					pb: {xs: 8, sm: 12},
+				}}
+			>
+				<Stack
 					spacing={2}
 					sx={{width: {xs: '100%', sm: '70%'}, textAlign: 'center'}}
 				>
@@ -231,8 +152,37 @@ export default function Hero() {
 							}}
 						/>
 					</Typography>
-
-				</Stack> */}
+					<Typography
+						variant="body1"
+						color="text.secondary"
+						sx={{
+							alignSelf: 'center',
+							width: {sm: '100%', md: '80%'},
+						}}
+					>
+						Give us your insights and help us deliver better
+						products and services.
+					</Typography>
+					<Stack
+						direction={{xs: 'column', sm: 'row'}}
+						alignSelf="center"
+						spacing={1}
+						sx={{pt: 2, width: {xs: '100%', sm: 'auto'}}}
+					>
+						{role !== 'admin' && (
+							<DropDownButton
+								variant="contained"
+								mainBtn="Provide Feedback"
+								btn1="Product Feedback"
+								btn2="Student Feedback"
+								btn3="Employee Feedback"
+								link1="productfeedback"
+								link2="studentfeedback"
+								link3="employeefeedback"
+							/>
+						)}
+					</Stack>
+				</Stack>
 				{user && (
 					<Box
 						id="image"
@@ -287,6 +237,46 @@ export default function Hero() {
 			</Container>
 			{/* Insert the Excel component here */}
 			<Excel />
+			<Container sx={{py: 8}}>
+				<Grid container spacing={4}>
+					<Grid item xs={12} sm={6}>
+						<Box sx={{textAlign: 'center', py: 4}}>
+							<Typography variant="h4" color="primary">
+								Welcome to{' '}
+								<span style={{color: 'orange'}}>Feed</span>
+								<span style={{color: 'gray'}}>RE</span>
+							</Typography>
+							<Typography variant="body1" sx={{mt: 3}}>
+								Your Voice Matters! This platform bridges the
+								gap between students and departments, allowing
+								seamless feedback submission and in-depth
+								analysis. Join us in shaping a better academic
+								experience!
+							</Typography>
+						</Box>
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<Box
+							sx={{
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+								height: '100%',
+							}}
+						>
+							<img
+								src={img}
+								alt="Welcome"
+								style={{
+									width: '100%',
+									height: 'auto',
+									borderRadius: '10px',
+								}}
+							/>
+						</Box>
+					</Grid>
+				</Grid>
+			</Container>
 		</Box>
 	);
 }
