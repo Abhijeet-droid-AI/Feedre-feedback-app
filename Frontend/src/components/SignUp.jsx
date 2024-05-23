@@ -15,6 +15,7 @@ import {Input} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {login} from '../redux/userSlice';
 import {useNavigate} from 'react-router-dom';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -66,7 +67,7 @@ export default function SignUp({role = 'user'}) {
 							alignItems: 'center',
 						}}
 					>
-						<Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+						<Avatar sx={{m: 1, bgcolor: 'primary.main'}}>
 							<LockOutlinedIcon />
 						</Avatar>
 						<Typography component="h1" variant="h5">
@@ -78,6 +79,31 @@ export default function SignUp({role = 'user'}) {
 							onSubmit={handleSubmit}
 							sx={{mt: 3}}
 						>
+							<Grid item xs={12}>
+								<Box
+									display="flex"
+									alignItems="center"
+									gap={10}
+								>
+									<Input
+										type="file"
+										accept="image/*"
+										onChange={handleFileChange}
+										id="upload-photo"
+										style={{display: 'none'}}
+									/>
+									<label htmlFor="upload-photo">
+										<Button
+											variant="contained"
+											color="primary"
+											component="span"
+											startIcon={<PhotoCamera />}
+										>
+											Upload Avatar
+										</Button>
+									</label>
+								</Box>
+							</Grid>
 							<Grid container spacing={2}>
 								<Grid item xs={12}>
 									<TextField
@@ -121,17 +147,6 @@ export default function SignUp({role = 'user'}) {
 										autoComplete="new-password"
 									/>
 								</Grid>
-								<Grid item xs={12}>
-									<div>
-										{/* File input field for selecting a photo */}
-										<Input
-											type="file"
-											accept="image/*"
-											onChange={handleFileChange}
-											aria-label="Avatar"
-										/>
-									</div>
-								</Grid>
 							</Grid>
 							<Button
 								type="submit"
@@ -142,7 +157,7 @@ export default function SignUp({role = 'user'}) {
 								Sign Up
 							</Button>
 							<Grid container justifyContent="flex-end">
-								<Grid item>
+								<Grid item sx={{mt: 3, mb: 2}}>
 									<Link
 										href={`/${role}signin`}
 										variant="body2"

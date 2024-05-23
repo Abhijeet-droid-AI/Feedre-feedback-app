@@ -1,28 +1,3 @@
-// import {Avatar, Typography, Card, CardContent} from '@mui/material';
-
-// const FeedbackCard = ({fullName, avatar, comments, type, ratings}) => {
-// 	return (
-// 		<Card
-// 			sx={{
-// 				bgcolor: 'Background.paper',
-// 				padding: '10px',
-// 			}}
-// 		>
-// 			<div className=" flex gap-2">
-// 				<Avatar src={avatar} />
-// 				<Typography variant="h6">{fullName}</Typography>
-// 			</div>
-// 			<Typography variant="h6" align="center">
-// 				<b> {type + ' Feedback'}</b>
-// 			</Typography>
-// 			<CardContent variant="p" align="center">
-// 				{comments}
-// 			</CardContent>
-// 		</Card>
-// 	);
-// };
-
-// export default FeedbackCard;
 import {
 	Avatar,
 	Typography,
@@ -30,22 +5,41 @@ import {
 	CardActions,
 	CardContent,
 	Rating,
+	Box,
 } from '@mui/material';
 
 // eslint-disable-next-line react/prop-types
 const FeedbackCard = ({fullName, avatar, comments, type, ratings}) => {
 	return (
-		<Card variant="outlined" sx={{padding: '16px'}}>
-			<CardActions disableSpacing>
-				<Avatar src={avatar} />
-				<Typography variant="subtitle1">{fullName}</Typography>
+		<Card
+			variant="outlined"
+			sx={{
+				padding: '16px',
+				bgcolor: 'background.paper',
+				boxShadow: 3,
+				borderRadius: 2,
+			}}
+		>
+			<CardActions disableSpacing sx={{alignItems: 'center'}}>
+				<Avatar src={avatar} sx={{width: 56, height: 56}} />
+				<Typography variant="h6" sx={{ml: 2, fontWeight: 'bold'}}>
+					{fullName}
+				</Typography>
 			</CardActions>
-			<Typography variant="h6" align="center">
-				<b>{type}</b> Feedback
-			</Typography>
+			<Box sx={{mt: 2, mb: 2}}>
+				<Typography variant="h6" align="center" color="primary">
+					{type} Feedback
+				</Typography>
+			</Box>
 			<CardContent>
-				<Typography variant="body1">{comments}</Typography>
-				{ratings && <Rating value={ratings} readOnly />}
+				<Typography variant="body1" sx={{mb: 2}}>
+					{comments}
+				</Typography>
+				{ratings && (
+					<Box display="flex" justifyContent="center" mt={2}>
+						<Rating value={ratings} readOnly />
+					</Box>
+				)}
 			</CardContent>
 		</Card>
 	);

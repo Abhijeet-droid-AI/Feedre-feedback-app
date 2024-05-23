@@ -89,7 +89,7 @@ function AppAppBar() {
 								px: 0,
 							}}
 						>
-							<div className=" px-5">
+							<Link to={`/`} className=" px-5">
 								<Typography variant="h5" color="#093170">
 									<p
 										className={`font-bold  text-orange-700 text-4xl mt-2 sm:text-5xl px-2`}
@@ -101,21 +101,12 @@ function AppAppBar() {
 										</span>{' '}
 									</p>
 								</Typography>
-							</div>
+							</Link>
 							<Box sx={{display: {xs: 'none', md: 'flex'}}}>
 								<MenuItem
 									onClick={() => scrollToSection('features')}
-									sx={{py: '6px', px: '12px'}}
-								>
-									<Link to={`/`}>
-										<Typography
-											variant="body2"
-											color="text.primary"
-										>
-											Home
-										</Typography>
-									</Link>
-								</MenuItem>
+									sx={{py: '6px', px: '52px'}}
+								></MenuItem>
 								{role != 'admin' ? (
 									<>
 										<MenuItem

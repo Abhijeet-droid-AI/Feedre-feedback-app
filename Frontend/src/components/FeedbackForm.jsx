@@ -20,6 +20,36 @@ const labels = {
 	5: 'Excellent+',
 };
 
+// const useStyles = makeStyles((theme) => ({
+// 	container: {
+// 		display: 'flex',
+// 		flexDirection: 'column',
+// 		gap: theme.spacing(4),
+// 		padding: theme.spacing(4),
+// 	},
+// 	card: {
+// 		padding: theme.spacing(4),
+// 		maxWidth: '600px',
+// 		margin: 'auto',
+// 		boxShadow: theme.shadows[3],
+// 	},
+// 	ratingBox: {
+// 		display: 'flex',
+// 		alignItems: 'center',
+// 		marginBottom: theme.spacing(2),
+// 	},
+// 	submitButton: {
+// 		marginTop: theme.spacing(3),
+// 		marginBottom: theme.spacing(2),
+// 	},
+// 	commentsField: {
+// 		marginTop: theme.spacing(2),
+// 	},
+// 	feedbackStatusBox: {
+// 		marginLeft: theme.spacing(2),
+// 	},
+// }));
+
 function getLabelText(value) {
 	return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
 }
@@ -60,7 +90,7 @@ const FeedbackForm = ({type}) => {
 			}
 			setTimeout(() => {
 				setFeedbackStatus('Submit');
-			}, 5000);
+			}, 3000);
 			console.log('Response ', res.data);
 		} catch (error) {
 			const errorMsg = errorParser(error);
@@ -151,21 +181,14 @@ const FeedbackForm = ({type}) => {
 						/>
 						<Button
 							type="submit"
-							fullWidth
 							variant="contained"
-							sx={{mt: 3, mb: 2}}
-							onClick={
-								status
-									? handleClick
-									: () => {
-											return;
-								}
-							}
 							color={
-								feedbackStatus == 'Submitted'
+								feedbackStatus === 'Submitted'
 									? 'success'
 									: 'primary'
 							}
+							sx={{mt: 2}}
+							onClick={status ? handleClick : () => {}}
 						>
 							{feedbackStatus}
 						</Button>
